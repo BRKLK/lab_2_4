@@ -41,6 +41,16 @@ public:
         ;
     }
 
+    void print()
+    {
+        if(is_negative) std::cout << '-';
+        for (int i = digits.size() - 1; i >= 0; --i) 
+        {
+            std::cout << digits[i];
+        }
+        std::cout << std::endl;
+    }
+
     short compare_abs(BigInt a, BigInt b) // Comparing absolute values of two BigInts
     {
         if(a.digits.size() > b.digits.size())
@@ -66,17 +76,6 @@ public:
             }
             return 3; // a equals b
         }
-    }
-
-
-    void print()
-    {
-        if(is_negative) std::cout << '-';
-        for (int i = digits.size() - 1; i >= 0; --i) 
-        {
-            std::cout << digits[i];
-        }
-        std::cout << std::endl;
     }
 
     BigInt operator+(BigInt other) 
@@ -219,26 +218,47 @@ public:
         if(is_negative != other.is_negative) return true;
         else return compare_abs(*this, other) != 3;
     }
+
+    friend std::ostream& operator<<(std::ostream& os, BigInt& bigint);
+    friend std::istream& operator>>(std::istream& is, BigInt& BigInt);
 };
+
+std::ostream& operator<<(std::ostream& os, BigInt& bigint)
+{
+    if(bigint.is_negative) os << '-';
+    for (int i = bigint.digits.size() - 1; i >= 0; --i)
+    {
+        os << bigint.digits[i];
+    }
+    return os;
+}
+
+std::istream& operator>>(std::istream& is, BigInt& BigInt)
+{
+    
+}
+
 
 
 int main()
 {
     std::cout << "Enter the number a: ";std::string inp1; std::getline(std::cin, inp1);
-    std::cout << "Enter the number b: ";std::string inp2; std::getline(std::cin, inp2);
+    // std::cout << "Enter the number b: ";std::string inp2; std::getline(std::cin, inp2);
     BigInt a(inp1);
-    BigInt b(inp2);
+    // BigInt b(inp2);
 
-    std::cout << "Summ: ";
-    (a + b).print();
+    // std::cout << "Summ: ";
+    // (a + b).print();
 
-    std::cout << "Product: ";
-    (a * b).print();
+    // std::cout << "Product: ";
+    // (a * b).print();
 
-    std::cout << "a < b: " << (a < b) << std::endl;
-    std::cout << "a > b: " << (a > b) << std::endl;
-    std::cout << "a == b: " << (a == b) << std::endl;
-    std::cout << "a != b: " << (a != b) << std::endl;
+    // std::cout << "a < b: " << (a < b) << std::endl;
+    // std::cout << "a > b: " << (a > b) << std::endl;
+    // std::cout << "a == b: " << (a == b) << std::endl;
+    // std::cout << "a != b: " << (a != b) << std::endl;
+
+    std::cout << a;
 
     return 0;
 }
